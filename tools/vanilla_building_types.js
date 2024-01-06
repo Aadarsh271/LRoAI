@@ -74,21 +74,32 @@ classes = ['',
 [0] Key         Building key as in game files.
 [1] ID          Unique identification number. Required cause building key is a text so it can't be stored in variables.
 [2] Class       ...that the building belongs to. Based on building groups as in game files, but classes are more broad.
+                # 1 = Govt, 2 = Infrastructure, 3 = Mil, 4 = Strategic Resources, 5 = Farms/Plantations, 6 = Factories
 [3] Counter     Is used to stop script from queueing the same building after X times. Usually counter = id, but some
                 buildings share the same counter for all of them if they produce the same goods, e.g. farms.
+                # So for example, if grain production is needed, at most 5 of some arbitrary combinantion of rye, rice,
+                # wheat, millet, or maize is queued. It appears that synthetics are incorrectly mapped to cotton
+                # instead of dye at the moment.
 [4] Order       When buildings have the same priority, they are queued based on this order value. It's here mostly to
                 solve dependencies, e.g. tools before mines, mines before industries etc.
+                # In my personal experience, interspersing buildings is more effective, especially for smaller economies
+                # As it prevents rapid swings in price that can cause unintentional crunches. I may look into adding 
+                # that (if buildings really are always queued as multiples in a row)
 [5] Limit       Setting to change the limit of queueing the same building, see Counter. Can be set on scale from 1 to 9,
                 where 5 is default, smaller values reduces the limit, higher values increase it.
 [6] Crucial     Rating of how crucial this building is for country and economy. When priority <= crucial, many
                 of the usual limitations are partially or fully ignored to construct this building at any cost.
+                # Need to find out how exactly the requirements are waived
 [7] Workforce   Determines if workforce limitations are applied to this building, 0 = false, 1 = true. E.g. if we need
                 railways due to market access going down we don't really care if there is free workforce right now.
 [8] Allocate    Informs the script on how much aptitude levels are there in allocate trigger of this building. E.g. if
                 allocate trigger of the building have some conditions for $aptitude$ = 1 and $aptitude$ = 2, then this
                 attribute must be set to 2 as well. If set to False it'll default to allocate value of building's class.
                 Max number of aptitude conditions and thus allocate attribute are limited to 10 for performance reasons.
+                # Need to look into what aptitude and allocate are; presumably related to employment qualifications?
 [9] Branching   Are states getting filtered by stuff like being incorporated for this building? 0 = false, 1 = true.
+                # I wonder how exactly branching is implemented; is this an efficiency thing to do less checks, or
+                # just to bypass certain checks (based on whats true/false pretty likely the latter)
 [10] Scaling    Does economy of scale apply to this building? 0 = false, 1 = true.
 
 
