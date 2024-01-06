@@ -1,4 +1,7 @@
 ﻿namespace = lroai_framework_events
+# This event is called once daily, because on_monthly_pulse_country is monthly but spread arbitrarily across
+# the days of the month for each country. Since the scope doesn't matter, and there is code to always trigger
+# this event once called the first time, it gets called every day
 
 # Called by on_monthly_pulse_country, but scope that called it doesn't matter, as there's no dependency on root scope
 lroai_framework_events.1 = {
